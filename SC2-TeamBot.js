@@ -145,7 +145,7 @@ client.on('message', msg => {
     }
 });
 
-client.login('NDI2MDg2MDYwNjk1NzQ4NjA5.XNrAbg.i32cL1zNn_8T2eTwtbz_GsWqojc');
+client.login('YOUR-KEY-HERE');
 
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
