@@ -1,10 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`);
-});
-
 client.on('message', msg => {
     if (!msg.content.startsWith('!') || msg.author.bot) return;
 
@@ -20,7 +16,7 @@ client.on('message', msg => {
 	}else if(command === 'createteam' || command === "ct") {
 		
 		//Change the .get() to your inital voice channel ID
-        const channel = client.channels.get('202516109625131009');
+        const channel = client.channels.cache.get('202516109625131009');
 
         let members = channel.members;
 		
@@ -49,7 +45,7 @@ client.on('message', msg => {
                 }
 				
 				//Set this to team 1's voice channel ID
-                currentPerson.setVoiceChannel('577879760747626527');
+                currentPerson.voice.setChannel('577879760747626527');
             }else{
                 //Team 2
                 if(x === true) {
@@ -58,7 +54,7 @@ client.on('message', msg => {
                 }
 				
 				//Set this to team 2's voice channel ID
-                currentPerson.setVoiceChannel('577879779793960961');
+                currentPerson.voice.setChannel('577879779793960961');
             }
 
             if(x) {
@@ -78,7 +74,7 @@ client.on('message', msg => {
 	} else if(command === "createteam-novoice" || command === "ct-nv"){
 		
 		//Change the .get() to your inital voice channel ID
-        const channel = client.channels.get('202516109625131009');
+        const channel = client.channels.cache.get('202516109625131009');
 
         let members = channel.members;
 		
@@ -130,22 +126,20 @@ client.on('message', msg => {
     }else if(command === "return"){
 		
 		//Set this to team 1's voice channel ID
-        const channel1 = client.channels.get('577879760747626527');
+        const channel1 = client.channels.cache.get('577879760747626527');
 		//Set this to team 2's voice channel ID
-        const channel2 = client.channels.get('577879779793960961');
+        const channel2 = client.channels.cache.get('577879779793960961');
 
         channel1.members.forEach(function(member) {
 			//Change this to your voice channel ID that you want the player to be returned to. This would normally be the inital one for easy of use
-            member.setVoiceChannel('202516109625131009');
+            member.voice.setChannel('202516109625131009');
         });
 			//Same again here. Best to use the same ID as above.
         channel2.members.forEach(function(member) {
-            member.setVoiceChannel('202516109625131009');
+            member.voice.setChannel('202516109625131009');
         });
     }
 });
-
-client.login('YOUR-KEY-HERE');
 
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -160,3 +154,5 @@ function shuffle(array) {
 
     return array;
 }
+
+client.login(process.env.DISCORD_TOKEN);
